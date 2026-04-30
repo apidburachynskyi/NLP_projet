@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[preprint]{neurips_2024}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{Topic Modeling of French Electoral Manifestos: Classical and Transformer-Based Approaches}
+\author{Your Name\\ENSAE Paris\\\texttt{your.email@example.com}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We analyze the Archelec corpus of French electoral manifestos using topic modeling. We compare classical LDA and NMF baselines with BERTopic, a transformer-based topic modeling method. We then study the association between extracted topics and candidate metadata such as political support, profession, and age group. Our results show that topic models can reveal interpretable themes in campaign discourse, while also highlighting the impact of OCR noise, archive boilerplate, and model choice.
+\end{abstract}
+
+\section{Introduction}
+Electoral manifestos are a useful source for studying political communication. This project applies NLP methods to the Archelec corpus, a collection of French \textit{professions de foi}. We ask whether topic modeling can extract meaningful political themes and whether these themes vary across candidate metadata.
+
+\section{Related work}
+Classical topic models such as LDA \citep{blei2003lda} and NMF rely on word co-occurrence and TF-IDF representations. More recent methods such as BERTopic \citep{grootendorst2022bertopic} use sentence embeddings \citep{reimers2019sentencebert} and clustering to capture semantic similarity. Our metadata analysis is inspired by Structural Topic Models \citep{roberts2014stm}, although we use a simpler two-step Python pipeline.
+
+\section{Data}
+The OCR transcriptions are extracted from the Teklia Archelec repository and candidate metadata is downloaded from the Archelec website. We remove repeated archive boilerplate such as \texttt{Sciences Po / fonds CEVIPOF}, election headers, and other generic administrative terms. We use candidate metadata fields including political support, profession, and age group.
+
+\section{Methods}
+\subsection{Preprocessing}
+We clean OCR text, remove domain-specific stopwords, and filter very short documents. For LDA and NMF, documents are represented with CountVectorizer or TF-IDF. For BERTopic, cleaned natural text is encoded with multilingual Sentence-BERT embeddings.
+
+\subsection{Topic models}
+We compare LDA, NMF, and BERTopic. LDA is a probabilistic baseline, NMF is an interpretable TF-IDF factorization baseline, and BERTopic is a transformer-based topic model using UMAP and HDBSCAN. We do not use KMeans in the final BERTopic model.
+
+\subsection{Metadata analysis}
+After assigning topics to documents, we compute topic distributions by political support, profession, and age group. We also use topic probabilities as features in a logistic regression to predict political support, comparing against a majority-class dummy baseline.
+
+\section{Results}
+\subsection{Topic model comparison}
+Insert the automatic evaluation table from \texttt{outputs/evaluation/topic\_model\_evaluation.csv}. Discuss coherence and topic diversity.
+
+\subsection{Interpreted topics}
+Insert manually labeled topics from \texttt{outputs/topics/manual\_topic\_labels.csv}. Topic labels are assigned manually from top words.
+
+\subsection{Topics and metadata}
+Insert heatmaps from \texttt{outputs/figures/}. Discuss the Cramer's V association scores.
+
+\subsection{Prediction of political support}
+Insert the prediction table from \texttt{outputs/metadata/prediction\_results.csv}. Interpret macro-F1 carefully.
+
+\section{Discussion}
+The comparison may show that NMF produces more coherent lexical topics than BERTopic. This is not a failure: French electoral manifestos contain strong lexical markers of ideology and party family. BERTopic remains useful as a neural comparison, but it can be sensitive to OCR noise and formulaic archive text. The metadata results should be interpreted as exploratory associations rather than causal effects.
+
+\section{Conclusion}
+This project shows that topic modeling can extract interpretable themes from the Archelec corpus and that these themes are associated with candidate metadata. Future work could aggregate OCR pages into full manifesto-level documents, use Structural Topic Models, or perform temporal analysis across elections.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

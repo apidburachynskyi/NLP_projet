@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment / secrets
+.env
+*.env
+HF_TOKEN
+secrets.json
+
+# Large/raw data
+data/raw/
+data/processed/
+
+# Model/cache outputs
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.joblib
+*.model
+
+# Generated outputs
+outputs/
+report/*.aux
+report/*.bbl
+report/*.blg
+report/*.log
+report/*.out
+report/*.toc
+report/*.fls
+report/*.fdb_latexmk
+report/*.synctex.gz
+report/*.pdf
+
+# Keep folder structure if needed
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!outputs/.gitkeep
+!outputs/topics/.gitkeep
+!outputs/figures/.gitkeep
+!outputs/metadata/.gitkeep
+!outputs/evaluation/.gitkeep
